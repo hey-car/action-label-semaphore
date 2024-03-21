@@ -1,3 +1,3 @@
-# actions-template
+# actions-label-semaphore
 
-Template repo for github actions
+This action manage a semaphore system using labels in a remote repository.

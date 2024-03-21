@@ -1,25 +1,30 @@
 #!/usr/bin/env bash
 
 . "$(dirname "$0")/utils.sh"
-
+. "$(dirname "$0")/gh-utils.sh"
+. "$(dirname "$0")/label-semaphore/utils.sh"
 # Your action logic goes here
 
-# TODO(user): Use this helper function to check if a required env variable is set or not
-check_env_var "SOME_INPUT"
+export REPO_NAME="${GITHUB_REPOSITORY#*/}"
+check_env_var "PR_NUMBER"
+check_env_var "PR_LABEL"
+check_env_var "ARGO_REPO"
+check_env_var "PR_USE_ALPHA_CHANNEL"
+check_env_var "ARGO_APP_PATH"
+check_env_var "ARGO_REVISION_PATH"
+check_env_var "SEMAPHORE_ACTION"
 
-# TODO(user): Use the `check_bool` helper function to check for bool values
-if [[ "$(check_bool "true")" ]]; then
-  # TODO(user): Use the `log_out` helper function to log messages
-  log_out "hello world" "INFO"
-  # The following are some handy logging functions
-  log_debug "This is a DEBUG log"
-  log_info "This is a INFO log"
-  log_warning "This is a WARNING log"
-  log_error "This is a ERROR log"
-  log_fatal "This is a FATAL log"                         # <- This one exists with an error
-  log_fatal "This is a FATAL log with custom exit code" 5 # <- This one exists with an error
-  log_out "This is a custom log message that exits with code 10" "FATAL" 10
-fi
-
-# TODO(user): This is how to output something to GH actions
-echo "some-output=HelloThereGeneralKenobi" >>"${GITHUB_OUTPUT}"
+case "${SEMAPHORE_ACTION}" in
+publish)
+  . "$(dirname "$0")/label-semaphore/publish.sh"
+  ;;
+unpublish)
+  . "$(dirname "$0")/label-semaphore/unpublish.sh"
+  ;;
+sync)
+  . "$(dirname "$0")/label-semaphore/sync.sh"
+  ;;
+*)
+  log_fatal "Unrecognized label semaphore action '${SEMAPHORE_ACTION}'. Must be one of the following: publish, unpublish, or sync"
+  ;;
+esac
