@@ -3,7 +3,7 @@ branding:
   icon: arrow-right-circle
   color: gray-dark
 description: |
-  Update image in remote repo with correct tag based on labeled pull request; scripts prevent duplicate labels on pull requests.
+  Update img in remote repo with correct tag based on labeled pull request; scripts prevent duplicate labels on pull requests
 
 inputs:
   debug-mode:
