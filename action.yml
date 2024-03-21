@@ -1,9 +1,10 @@
-name: Some action # TODO(user): Replace this with your action name
+name: Label Semaphore
 branding:
   icon: arrow-right-circle
   color: gray-dark
-description: | # TODO(user): replace this with your action description
-  This action does something
+description: | 
+  This action manage a semaphore system using labels, to updates a file in a remote (CD)repository with a right tag based on the labeled pull request.
+  When a pull request is labeled, the scripts ensure that no other pull requests have the same label.
 
 inputs:
   debug-mode:
@@ -18,15 +19,29 @@ inputs:
     description: Set to true in order to enable timestamps on log messages
     required: false
     default: 'true'
-  # TODO(user): Specify your inputs here
-  input-name:
-    description: Some input description
+  github-token:
+    description: The token to use for the GitHub API and to update the remote repository
+    required: true
+  pr-label:
+    description: The label to use for the semaphore
+    required: true
+  pr-number:
+    description: The current pull request number
+    required: true
+  argo-repo:
+    description: The repository to update with the semaphore version
+    required: true
+  use-alpha-channel:
+    description: Set to true to use the alpha channel for the semaphore
+    required: false
+    default: 'true'
+  argo-path-file:
+    description: The path to the file to update in the repository
+    required: true
+  semaphore-action:
+    description: The action to perform on the semaphore
     required: true
 
-# TODO(user): Define your outputs here
-outputs:
-  some-output:
-    description: 'Some output description'
 
 runs:
   using: 'docker'
@@ -35,5 +50,9 @@ runs:
     DEBUG_MODE: ${{ inputs.debug-mode }}
     LOG_LEVEL: ${{ inputs.log-level }}
     LOG_TIMESTAMPED: ${{ inputs.log-timestamped }}
-    # TODO(user): Define your environment variables here
-    SOME_INPUT: ${{ inputs.input-name }}
+    PR_LABEL: ${{ inputs.pr-label }}
+    PR_NUMBER: ${{ inputs.pr-number }}
+    ARGO_REPO: ${{ inputs.argo-repo }}
+    PR_USE_ALPHA_CHANNEL: ${{ inputs.use-alpha-channel }}
+    ARGO_REVISION_PATH: ${{ inputs.argo-path-file }}
+    SEMAPHORE_ACTION: ${{ inputs.semaphore-action }}
