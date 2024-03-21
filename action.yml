@@ -2,9 +2,8 @@ name: Label Semaphore
 branding:
   icon: arrow-right-circle
   color: gray-dark
-description: | 
-  This action manage a semaphore system using labels, to updates a file in a remote (CD)repository with a right tag based on the labeled pull request.
-  When a pull request is labeled, the scripts ensure that no other pull requests have the same label.
+description: |
+  Update image in remote repo with correct tag based on labeled pull request; scripts prevent duplicate labels on pull requests.
 
 inputs:
   debug-mode:
