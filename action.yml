@@ -19,11 +19,14 @@ inputs:
     description: Set to true in order to enable timestamps on log messages
     required: false
     default: 'true'
+  github-token:
+    description: The token to use for the GitHub API and to update the remote repository
+    required: true
   pr-label:
     description: The label to use for the semaphore
     required: true
   pr-number:
-    description: The current pull request number if the action is not being triggered on tags
+    description: The current pull request number
     required: true
   argo-repo:
     description: The repository to update with the semaphore version

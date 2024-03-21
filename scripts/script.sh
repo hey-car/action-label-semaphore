@@ -6,6 +6,7 @@
 # Your action logic goes here
 
 export REPO_NAME="${GITHUB_REPOSITORY#*/}"
+check_env_var "GITHUB_TOKEN"
 check_env_var "PR_NUMBER"
 check_env_var "PR_LABEL"
 check_env_var "ARGO_REPO"
