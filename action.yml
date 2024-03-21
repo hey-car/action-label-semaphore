@@ -1,0 +1,39 @@
+name: Some action # TODO(user): Replace this with your action name
+branding:
+  icon: arrow-right-circle
+  color: gray-dark
+description: | # TODO(user): replace this with your action description
+  This action does something
+
+inputs:
+  debug-mode:
+    description: Set to true for verbose execution when debugging
+    required: false
+    default: 'false'
+  log-level:
+    description: The log level to use for the execution
+    required: false
+    default: 'info'
+  log-timestamped:
+    description: Set to true in order to enable timestamps on log messages
+    required: false
+    default: 'true'
+  # TODO(user): Specify your inputs here
+  input-name:
+    description: Some input description
+    required: true
+
+# TODO(user): Define your outputs here
+outputs:
+  some-output:
+    description: 'Some output description'
+
+runs:
+  using: 'docker'
+  image: Dockerfile
+  env:
+    DEBUG_MODE: ${{ inputs.debug-mode }}
+    LOG_LEVEL: ${{ inputs.log-level }}
+    LOG_TIMESTAMPED: ${{ inputs.log-timestamped }}
+    # TODO(user): Define your environment variables here
+    SOME_INPUT: ${{ inputs.input-name }}
