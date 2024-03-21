@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.1](https://github.com/hey-car/action-label-semaphore/compare/v1.0.0...v1.0.1) (2024-03-21)
+
+
+### Bug Fixes
+
+* action description ([e73bb7a](https://github.com/hey-car/action-label-semaphore/commit/e73bb7a8c079d14d8db49ce283e13e54f49a754a))
+
 ## 1.0.0 (2024-03-21)
 
 
