@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.0.7](https://github.com/hey-car/action-label-semaphore/compare/v1.0.6...v1.0.7) (2024-03-22)
+
+
+### Bug Fixes
+
+* add missing env variables ([73a02d1](https://github.com/hey-car/action-label-semaphore/commit/73a02d1999836d6e4294b4a77cb6d4d2439fccd3))
+
 ### [1.0.6](https://github.com/hey-car/action-label-semaphore/compare/v1.0.5...v1.0.6) (2024-03-22)
 
 
