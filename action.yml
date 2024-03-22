@@ -34,7 +34,10 @@ inputs:
     description: Set to true to use the alpha channel for the semaphore
     required: false
     default: 'true'
-  argo-path-file:
+  argo-revision-path:
+    description: Yaml path value to update under argo-app-path
+    required: true
+  argo-app-path:
     description: The path to the file to update in the repository
     required: true
   semaphore-action:
@@ -55,7 +58,8 @@ runs:
     PR_LABEL: ${{ inputs.pr-label }}
     PR_NUMBER: ${{ inputs.pr-number }}
     ARGO_REPO: ${{ inputs.argo-repo }}
+    ARGO_APP_PATH: ${{ inputs.argo-app-path }}
     PR_USE_ALPHA_CHANNEL: ${{ inputs.use-alpha-channel }}
-    ARGO_REVISION_PATH: ${{ inputs.argo-path-file }}
+    ARGO_REVISION_PATH: ${{ inputs.argo-revision-path }}
     SEMAPHORE_ACTION: ${{ inputs.semaphore-action }}
     DESIRED_REVISION: ${{ inputs.desired-revision }}

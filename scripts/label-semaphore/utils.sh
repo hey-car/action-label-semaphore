@@ -83,6 +83,5 @@ function deploy_semaphore_changes() {
   fi
 
   log_out "commenting on Pull Request ${_repo_org}/${_current_repo_name}#${_pr_number} to inform of changes."
-  comment_on_pr "${_repo_org}" "${_current_repo_name}" "${_pr_number}" ":rocket: Your revision '${_desired_revision}' has been ${_publish_operation}ed by the PR ${_repo_org}/${_argo_repo_name}#${_bump_pull_request}."
   comment_on_pull_request "${_repo_org}" "${_current_repo_name}" "${_pr_number}" ":rocket: Your revision '${_desired_revision}' has been ${_publish_operation}ed by the PR ${_repo_org}/${_argo_repo_name}#${_bump_pull_request}." "true" "label-semaphore:${SEMAPHORE_ACTION}"
 }
