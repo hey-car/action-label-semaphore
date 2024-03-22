@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-[[ -z "${DESIRED_REVISION}" || "${DESIRED_REVISION}" == "null" ]] && log_out "The env variable 'DESIRED_REVISION' is required. Aborting." "ERROR" 1
+check_env_var "DESIRED_REVISION"
 
 validate_argo_dependencies "${GITHUB_REPOSITORY_OWNER}" "${ARGO_REPO}" "${ARGO_APP_PATH}"
 

@@ -40,6 +40,9 @@ inputs:
   semaphore-action:
     description: The action to perform on the semaphore
     required: true
+  desired-revision:
+    description: The desired revision to deploy
+    required: true
 
 
 runs:
@@ -55,3 +58,4 @@ runs:
     PR_USE_ALPHA_CHANNEL: ${{ inputs.use-alpha-channel }}
     ARGO_REVISION_PATH: ${{ inputs.argo-path-file }}
     SEMAPHORE_ACTION: ${{ inputs.semaphore-action }}
+    DESIRED_REVISION: ${{ inputs.desired-revision }}
