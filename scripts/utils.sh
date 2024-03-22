@@ -17,6 +17,8 @@
 #####       default: false
 ########################################################################################################
 
+set -e
+
 # Defining available log levels.
 case "$(echo "${LOG_LEVEL:-INFO}" | tr '[:lower:]' '[:upper:]')" in
 "DEBUG")
