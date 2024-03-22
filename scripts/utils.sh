@@ -104,8 +104,13 @@ function check_env_var() {
   _envVar="${1}"
   _required="${2:-true}"
 
-  [[ (-z "${!_envVar}" || "${!_envVar,,}" == "null") && "$(check_bool "${_required}")" ]] && log_out "The required environment variable '${_envVar}' is missing. Aborting." "FATAL" 1
-  [[ (-z "${!_envVar}" || "${!_envVar,,}" == "null") && -z "$(check_bool "${_required}")" ]] && log_out "The environment variable '${_envVar}' is missing." "WARNING"
+  if [[ -z "${!_envVar}" || "${!_envVar,,}" == "null" ]]; then
+    if [[ "$(check_bool "${_required}")" ]]; then
+      log_out "The required environment variable '${_envVar}' is missing. Aborting." "FATAL" 1
+    else
+      log_out "The environment variable '${_envVar}' is missing." "WARNING"
+    fi
+  fi
 }
 
 if [[ "$(check_bool "${DEBUG_MODE}")" ]]; then
