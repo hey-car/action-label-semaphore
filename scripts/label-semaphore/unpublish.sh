@@ -12,17 +12,6 @@ mkdir "${_work_dir}"
 ## Label Checks
 
 log_out "Starting Label Semaphore for Unpublishing PR Environment!"
-log_out "Sanity check: Checking label on current Pull Request."
-_label_present_on_current_pr="$(check_label_on_current_pr "${GITHUB_REPOSITORY_OWNER}" "${REPO_NAME}" "${PR_NUMBER}" "${PR_LABEL}")"
-log_out "Was the label present on current Pull Requests? ${_label_present_on_current_pr}"
-
-log_out "Checking State on current Pull Request."
-_current_pr_state="$(check_status_of_pr "${GITHUB_REPOSITORY_OWNER}" "${REPO_NAME}" "${PR_NUMBER}")"
-log_out "Current Pull Request is: ${_current_pr_state}"
-
-if [[ "$(check_bool "${_label_present_on_current_pr}")" && "${_current_pr_state}" != "CLOSED" && "${_current_pr_state}" != "MERGED" ]]; then
-  log_out "The '${PR_LABEL}' is present on current PR #${PR_NUMBER} while it's still open. Aborting." "PANIC" 2
-fi
 
 log_out "Checking label on other Pull Requests."
 _label_present_on_other_prs="$(check_label_on_other_prs "${GITHUB_REPOSITORY_OWNER}" "${REPO_NAME}" "${PR_NUMBER}" "${PR_LABEL}")"

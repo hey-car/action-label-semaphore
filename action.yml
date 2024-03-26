@@ -24,9 +24,6 @@ inputs:
   pr-label:
     description: The label to use for the semaphore
     required: true
-  pr-number:
-    description: The current pull request number
-    required: true
   argo-repo:
     description: The repository to update with the semaphore version
     required: true
@@ -40,26 +37,71 @@ inputs:
   argo-app-path:
     description: The path to the file to update in the repository
     required: true
-  semaphore-action:
-    description: The action to perform on the semaphore
-    required: true
   desired-revision:
     description: The desired revision to deploy
     required: true
 
-
 runs:
-  using: 'docker'
-  image: Dockerfile
-  env:
-    DEBUG_MODE: ${{ inputs.debug-mode }}
-    LOG_LEVEL: ${{ inputs.log-level }}
-    LOG_TIMESTAMPED: ${{ inputs.log-timestamped }}
-    PR_LABEL: ${{ inputs.pr-label }}
-    PR_NUMBER: ${{ inputs.pr-number }}
-    ARGO_REPO: ${{ inputs.argo-repo }}
-    ARGO_APP_PATH: ${{ inputs.argo-app-path }}
-    PR_USE_ALPHA_CHANNEL: ${{ inputs.use-alpha-channel }}
-    ARGO_REVISION_PATH: ${{ inputs.argo-revision-path }}
-    SEMAPHORE_ACTION: ${{ inputs.semaphore-action }}
-    DESIRED_REVISION: ${{ inputs.desired-revision }}
+  using: 'composite'
+  steps:
+    - name: setup
+      shell: bash
+      id: setup
+      run: |
+        echo "scripts-path=${GITHUB_ACTION_PATH}" >>"${GITHUB_OUTPUT}"
+    - name: Sync PR Environment
+      if: github.event_name == 'pull_request' && github.event.action != 'closed' && github.event.action != 'labeled'  && github.event.action != 'unlabeled' && contains(github.event.pull_request.labels.*.name, inputs.pr-label)
+      run: '${{ steps.setup.outputs.scripts-path }}/scripts/script.sh'
+#      run: ${{ github.action_path }}/scripts/script.sh
+      shell: bash
+      env:
+        # Default conf
+        DEBUG_MODE: ${{ inputs.debug-mode }}
+        LOG_LEVEL: ${{ inputs.log-level }}
+        LOG_TIMESTAMPED: ${{ inputs.log-timestamped }}
+        PR_LABEL: ${{ inputs.pr-label }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        ARGO_REPO: ${{ inputs.argo-repo }}
+        ARGO_APP_PATH: ${{ inputs.argo-app-path }}
+        PR_USE_ALPHA_CHANNEL: ${{ inputs.use-alpha-channel }}
+        ARGO_REVISION_PATH: ${{ inputs.argo-revision-path }}
+        # Specific conf
+        DESIRED_REVISION: ${{ inputs.desired-revision }}
+        SEMAPHORE_ACTION: 'sync'
+    - name: Deploy PR Environment
+      if: github.event_name == 'pull_request' && github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, inputs.pr-label)
+      run: '${{ steps.setup.outputs.scripts-path }}/scripts/script.sh'
+#      run: ${{ github.action_path }}/scripts/script.sh
+      shell: bash
+      env:
+        # Default conf
+        DEBUG_MODE: ${{ inputs.debug-mode }}
+        LOG_LEVEL: ${{ inputs.log-level }}
+        LOG_TIMESTAMPED: ${{ inputs.log-timestamped }}
+        PR_LABEL: ${{ inputs.pr-label }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        ARGO_REPO: ${{ inputs.argo-repo }}
+        ARGO_APP_PATH: ${{ inputs.argo-app-path }}
+        PR_USE_ALPHA_CHANNEL: ${{ inputs.use-alpha-channel }}
+        ARGO_REVISION_PATH: ${{ inputs.argo-revision-path }}
+        # Specific conf
+        DESIRED_REVISION: ${{ inputs.desired-revision }}
+        SEMAPHORE_ACTION: 'publish'
+    - name: Remove PR Environment
+      if: github.event_name == 'pull_request' && (github.event.action == 'unlabeled' || github.event.action == 'closed') && !contains(github.event.pull_request.labels.*.name, inputs.pr-label)
+      run: '${{ steps.setup.outputs.scripts-path }}/scripts/script.sh'
+#      run: ${{ github.action_path }}/scripts/script.sh
+      shell: bash
+      env:
+        # Default conf
+        DEBUG_MODE: ${{ inputs.debug-mode }}
+        LOG_LEVEL: ${{ inputs.log-level }}
+        LOG_TIMESTAMPED: ${{ inputs.log-timestamped }}
+        PR_LABEL: ${{ inputs.pr-label }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        ARGO_REPO: ${{ inputs.argo-repo }}
+        ARGO_APP_PATH: ${{ inputs.argo-app-path }}
+        PR_USE_ALPHA_CHANNEL: ${{ inputs.use-alpha-channel }}
+        ARGO_REVISION_PATH: ${{ inputs.argo-revision-path }}
+        # Specific conf
+        SEMAPHORE_ACTION: 'unpublish'
