@@ -1,27 +1,8 @@
-ARG ALPINE_VERSION="3.19"
+ARG BASE_RUNNER_IMAGE_VERSION="1.3.0"
 
-FROM alpine:${ALPINE_VERSION}
-
-
-ARG BASH_VERSION="5"
-ARG GIT_VERSION="2"
-ARG JQ_VERSION="1"
-ARG YQ_VERSION="4"
-ARG CURL_VERSION="8"
-ARG GITHUB_CLI_VERSION="2"
+FROM heycardocker/infra-docker-actions:${BASE_RUNNER_IMAGE_VERSION}
 
 WORKDIR /scripts
-
-RUN apk update --no-cache; \
-    apk upgrade --no-cache; \
-    apk add --no-cache  \
-    git~="${GIT_VERSION}" \
-    bash~=${BASH_VERSION} \
-    jq~=${JQ_VERSION} \
-    yq~=${YQ_VERSION} \
-    curl~=${CURL_VERSION} \
-    github-cli~=${GITHUB_CLI_VERSION}; \
-    rm -rf /var/cache/apk/*
 
 ENV LOG_LEVEL "INFO"
 ENV LOG_TIMESTAMPED "true"
