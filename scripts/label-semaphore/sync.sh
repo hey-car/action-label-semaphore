@@ -12,13 +12,6 @@ mkdir "${_work_dir}"
 
 ## Label Checks
 log_out "Starting Label Semaphore for Publishing PR Environment!"
-log_out "Sanity check: Checking label on current Pull Request."
-_label_present_on_current_pr="$(check_label_on_current_pr "${GITHUB_REPOSITORY_OWNER}" "${REPO_NAME}" "${PR_NUMBER}" "${PR_LABEL}")"
-log_out "Was the label present on current Pull Requests? ${_label_present_on_current_pr}"
-
-if [[ -z "$(check_bool "${_label_present_on_current_pr}")" ]]; then
-  log_out "The '${PR_LABEL}' is not present on current PR #${PR_NUMBER}. Aborting." "PANIC" 2
-fi
 
 ## Semaphore Operations
 log_out "Fetching target file to update"

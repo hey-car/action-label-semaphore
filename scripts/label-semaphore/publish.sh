@@ -12,19 +12,12 @@ mkdir "${_work_dir}"
 
 ## Label Checks
 log_out "Starting Label Semaphore for Publishing PR Environment!"
-log_out "Sanity check: Checking label on current Pull Request."
-_label_present_on_current_pr="$(check_label_on_current_pr "${GITHUB_REPOSITORY_OWNER}" "${REPO_NAME}" "${PR_NUMBER}" "${PR_LABEL}")"
-log_out "Was the label present on current Pull Requests? ${_label_present_on_current_pr}"
-
-if [[ -z "$(check_bool "${_label_present_on_current_pr}")" ]]; then
-  log_out "The '${PR_LABEL}' is not present on current PR #${PR_NUMBER}. Aborting." "PANIC" 2
-fi
 
 log_out "Checking label on other Pull Requests."
 _label_present_on_other_prs="$(check_label_on_other_prs "${GITHUB_REPOSITORY_OWNER}" "${REPO_NAME}" "${PR_NUMBER}" "${PR_LABEL}")"
 log_out "Was the label present on other Pull Requests? ${_label_present_on_other_prs}"
 
-if [[ "$(check_bool "${_label_present_on_current_pr}")" && "$(check_bool "${_label_present_on_other_prs}")" ]]; then
+if [[ "$(check_bool "${_label_present_on_other_prs}")" ]]; then
   while read -r _pr; do
     log_out "Removing label from pull request #${_pr}"
     remove_label_from_pr "${GITHUB_REPOSITORY_OWNER}" "${REPO_NAME}" "${_pr}" "${PR_LABEL}"
