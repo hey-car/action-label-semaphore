@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0](https://github.com/hey-car/action-label-semaphore/compare/v1.0.7...v1.1.0) (2024-03-26)
+
+
+### Features
+
+* made the image public on docker hub ([c43846a](https://github.com/hey-car/action-label-semaphore/commit/c43846a51e36e8afa32c97028eca3b9f152eaad4))
+
 ### [1.0.7](https://github.com/hey-car/action-label-semaphore/compare/v1.0.6...v1.0.7) (2024-03-22)
 
 
