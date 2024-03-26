@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/hey-car/action-label-semaphore/compare/v1.1.0...v1.2.0) (2024-03-26)
+
+
+### Features
+
+* refactored script to run as composite ([7c21be6](https://github.com/hey-car/action-label-semaphore/commit/7c21be6382421aeca7d9845c4810848fbb00d3e8))
+* transformed action into composite ([7d63dbd](https://github.com/hey-car/action-label-semaphore/commit/7d63dbde63867d8f846031882a95a348b79ac147))
+
 ## [1.1.0](https://github.com/hey-car/action-label-semaphore/compare/v1.0.7...v1.1.0) (2024-03-26)
 
 
