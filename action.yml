@@ -52,7 +52,6 @@ runs:
     - name: Sync PR Environment
       if: github.event_name == 'pull_request' && github.event.action != 'closed' && github.event.action != 'labeled'  && github.event.action != 'unlabeled' && contains(github.event.pull_request.labels.*.name, inputs.pr-label)
       run: '${{ steps.setup.outputs.scripts-path }}/scripts/script.sh'
-#      run: ${{ github.action_path }}/scripts/script.sh
       shell: bash
       env:
         # Default conf
