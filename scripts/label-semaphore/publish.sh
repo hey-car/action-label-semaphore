@@ -8,7 +8,7 @@ _work_dir="/tmp/semaphore-workdir"
 _local_file_path="${_work_dir}/file.yaml"
 _alpha_release_config_path=".enableAlphaChannelForImage"
 log_out "creating temporary working directory"
-mkdir "${_work_dir}"
+mkdir -p "${_work_dir}"
 
 ## Label Checks
 log_out "Starting Label Semaphore for Publishing PR Environment!"
