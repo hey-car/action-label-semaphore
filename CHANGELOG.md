@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [1.2.1](https://github.com/hey-car/action-label-semaphore/compare/v1.2.0...v1.2.1) (2024-04-02)
+
+
+### Bug Fixes
+
+* fixed issue with pr env close ([026062e](https://github.com/hey-car/action-label-semaphore/commit/026062e3dd92d7bf3b4eab1e9f957be7c7f433a6))
+
 ## [1.2.0](https://github.com/hey-car/action-label-semaphore/compare/v1.1.0...v1.2.0) (2024-03-26)
 
 
