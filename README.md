@@ -1,6 +1,6 @@
 # action-label-semaphore
 
-This action manage a semaphore system using labels in a remote repository.
+This action manages a semaphore system using labels in a remote repository.
 
 ```yaml
     container:
