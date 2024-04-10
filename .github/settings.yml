@@ -5,21 +5,17 @@ repository:
     A Github template repo for public Gh Actions
   topics: github, actions, ci, scripts
   default_branch: master
-
   private: true
   has_projects: false
   has_wiki: false
   has_downloads: false
-
   allow_squash_merge: true
   allow_merge_commit: false
   allow_rebase_merge: false
   delete_branch_on_merge: true
-
 teams:
   - name: infra
     permission: admin
-
 labels:
   - name: "help wanted"
     color: "#008672"
@@ -72,7 +68,6 @@ labels:
   - name: "type: question"
     color: "#d876e3"
     description: "Further information is requested"
-
 branches:
   - name: master
     protection:
@@ -81,20 +76,20 @@ branches:
         dismiss_stale_reviews: true
         require_code_owner_reviews: true
         bypass_pull_request_allowances:
-          users:
-            - supcar
-          teams: []
+          users: []
+          teams:
+            - infra-ci
           apps: []
         dismissal_restrictions:
-          users:
-            - supcar
-          teams: []
+          users: []
+          teams:
+            - infra-ci
           apps: []
       required_status_checks: null
-      enforce_admins: true
+      enforce_admins: false
       required_linear_history: true
       restrictions:
-        users:
-          - supcar
-        teams: []
+        users: []
+        teams:
+          - infra-ci
         apps: []
