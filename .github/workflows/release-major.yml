@@ -1,0 +1,29 @@
+---
+name: Update major version tag
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  major-version-tag:
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Update major version tag
+        env:
+          GH_TOKEN: ${{ secrets.VERSIONING_TOKEN }}
+          REPO: ${{ github.repository }}
+          TAG: "${{ github.event.ref }}"
+          COMMIT_SHA: "${{ github.event.after }}"
+        run: |
+          _major_tag="$(echo ${TAG} | cut -d/ -f3 | cut -d. -f1)"
+
+          echo "Attempting to delete major version tag ${_major_tag}..."
+          gh release delete "${_major_tag}" --repo ${REPO} --cleanup-tag -y || echo "No major version tag to delete"
+
+          sleep 5 # https://github.com/cli/cli/issues/8458
+
+          echo "Creating major version tag ${_major_tag} for commit ${COMMIT_SHA}..."
+          gh release create "${_major_tag}" --repo ${REPO} --target ${COMMIT_SHA} --generate-notes --latest
