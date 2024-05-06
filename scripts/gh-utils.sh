@@ -13,7 +13,7 @@ function delete_previous_comments() {
 
   _nextPage="1"
   while [[ "${_nextPage}" != "0" ]]; do
-    _comments="$(gh api "/repos/${_repo_org}/${_repo_name}/issues/${_pr_number}/comments?direction=asc&per_page=20&page=${_nextPage}")"
+    _comments="$(gh api "/repos/${_repo_org}/${_repo_name}/issues/${_pr_number}/comments?direction=asc&per_page=20&page=${_nextPage}")" || exit 1
     if [[ "$(echo "${_comments}" | jq '.|length')" == 0 ]]; then
       _nextPage="0"
     else
@@ -21,7 +21,7 @@ function delete_previous_comments() {
     fi
     while read -r _previous_comment_id; do
       log_out "Deleting previous comment with ID: ${_previous_comment_id}"
-      gh api "/repos/${_repo_org}/${_repo_name}/issues/comments/${_previous_comment_id}" -X DELETE >/dev/null
+      gh api "/repos/${_repo_org}/${_repo_name}/issues/comments/${_previous_comment_id}" -X DELETE >/dev/null || exit 1
     done < <(echo "${_comments}" | jq ".[] | select(.body|startswith(\"$(get_formatted_comment_id "${_comment_id}")\")) | .id")
   done
 }
