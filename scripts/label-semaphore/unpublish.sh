@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+set -x
 validate_argo_dependencies "${GITHUB_REPOSITORY_OWNER}" "${ARGO_REPO}" "${ARGO_APP_PATH}"
 
 

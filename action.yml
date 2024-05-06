@@ -39,7 +39,7 @@ inputs:
     required: true
   desired-revision:
     description: The desired revision to deploy
-    required: true
+    required: false
 
 runs:
   using: 'composite'
