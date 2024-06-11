@@ -67,6 +67,7 @@ runs:
         # Specific conf
         DESIRED_REVISION: ${{ inputs.desired-revision }}
         SEMAPHORE_ACTION: 'sync'
+        GITHUB_ACTION_NAME: ${{github.job}}
     - name: Deploy PR Environment
       if: github.event_name == 'pull_request' && github.event.action == 'labeled' && contains(github.event.pull_request.labels.*.name, inputs.pr-label)
       run: '${{ steps.setup.outputs.scripts-path }}/scripts/script.sh'
@@ -86,6 +87,7 @@ runs:
         # Specific conf
         DESIRED_REVISION: ${{ inputs.desired-revision }}
         SEMAPHORE_ACTION: 'publish'
+        GITHUB_ACTION_NAME: ${{github.job}}
     - name: Remove PR Environment
       if: github.event_name == 'pull_request' && ((github.event.action == 'unlabeled' && !contains(github.event.pull_request.labels.*.name, inputs.pr-label)) || (github.event.action == 'closed' && contains(github.event.pull_request.labels.*.name, inputs.pr-label)))
       run: '${{ steps.setup.outputs.scripts-path }}/scripts/script.sh'
@@ -104,3 +106,4 @@ runs:
         ARGO_REVISION_PATH: ${{ inputs.argo-revision-path }}
         # Specific conf
         SEMAPHORE_ACTION: 'unpublish'
+        GITHUB_ACTION_NAME: ${{github.job}}
