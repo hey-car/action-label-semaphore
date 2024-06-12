@@ -2,7 +2,7 @@
 
 function get_formatted_comment_id() {
   _comment_id="${1}"
-  echo "<!-- comment-id:${_comment_id} -->"
+  echo "<!-- comment-id:${GITHUB_ACTION_NAME}:${_comment_id} -->"
 }
 
 # The `delete_previous_comments` function deletes comments by their ids from pull requests.
